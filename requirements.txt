@@ -8,7 +8,7 @@ matplotlib
 seaborn
 scipy
 scikit-learn
-statmodels
+statsmodels
 matplotlib-inline
 pillow
 toml
