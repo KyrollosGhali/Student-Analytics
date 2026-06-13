@@ -7,7 +7,7 @@ def get_client():
     return MongoClient(st.secrets["MONGO_URI"])
 
 def get_db():
-    return get_client()[st.secrets.get("MONGO_DB", "student_analytics")]
+    return get_client()[st.secrets["MONGO_DB"]
 
 @st.cache_data(ttl=600)
 def load_collection(name):
