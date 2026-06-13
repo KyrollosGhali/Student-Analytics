@@ -1,67 +1,148 @@
-# Kayfa Platform Analytics Dashboard
+# 🎓 Kayfa Platform Analytics Dashboard
 
-A multipage Streamlit dashboard answering 15 business questions about student
-attendance, performance, engagement, and risk on the Kayfa learning platform.
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-black)
+![License](https://img.shields.io/badge/License-Educational-orange)
 
-## Overview
+A comprehensive **Streamlit analytics dashboard** built to answer **15 key business questions** about student attendance, engagement, academic performance, cohort quality, and risk prediction on the **Kayfa Learning Platform**.
 
-Raw data was exported from multiple sources (Excel attendance sheets, nested
-JSON grade records, MongoDB collections) and reconciled into clean, joinable
-tables. The dashboard surfaces 15 analyses, each with a recommended chart,
-methodology, key metrics, and a written insight + recommendation.
+The project combines data from multiple sources, stores it in **MongoDB Atlas**, performs analytical processing using **Pandas and Scikit-Learn**, and delivers actionable insights through interactive visualizations.
 
-## Data sources
+---
 
-- `courses` — course catalogue (modules stored as JSON strings, parsed)
-- `groups` — class cohorts (self-reported size, NOT source of truth)
-- `students` — single source of truth for student → group → course mapping
-- `grades` — flattened per-assessment scores (quiz, assignment, practical, exam)
-- `attendance` — 6 monthly Excel sheets, reconciled (column names + status
-  encodings vary by sheet and were standardized to `attended` / `absent`)
-- `concepts_performance` — per-concept mastery over time
-- `engagement_events` — behavioral log (currently video_watch only — login
-  frequency is not available and is called out as a limitation)
-- `assignment_submissions` — submission timing, used to study procrastination
+## 🚀 Business Objectives
 
-## Known data limitations
+This dashboard helps stakeholders:
 
-- Engagement data only contains `video_watch` events. Login frequency,
-  forum activity, etc. are not present, so engagement metrics use
-  video-watch time and event count as proxies.
-- `groups.stated_num_students` is self-reported and diverges from the true
-  roster by up to 30 students in some groups (see Q12).
-- C007 has only 1 enrolled student — treated as a non-comparable outlier
-  cohort in course-level comparisons (see Q3, Q13).
+* Identify low-performing groups
+* Detect at-risk students early
+* Understand attendance-performance relationships
+* Evaluate course effectiveness
+* Analyze engagement patterns
+* Improve curriculum quality
+* Support operational planning
+* Optimize student grouping strategies
 
-## The 15 questions
+---
 
-| # | Question | Chart type | Key finding |
-|---|----------|-----------|-------------|
-| 1 | Attendance rate per group vs platform average | Bar + reference line | G07-C005 is 15.8pts below average |
-| 2 | Score distribution by assessment type | Boxplot | Quizzes most volatile (std=19.9) |
-| 3 | Highest/lowest avg grade course | Bar + boxplot | C001 highest (73.2%), C005 lowest (59.7%) |
-| 4 | Attendance vs grade correlation | Scatter + regression | r=0.42, p<0.001 |
-| 5 | Engagement vs performance | Scatter + heatmap | Video time r=0.38 vs grade |
-| 6 | Concept failure rates | Horizontal bar | Recursion (C002) at 83.4% failure |
-| 7 | Weakest concept mastery over time | Line chart | Flat trend (slope ≈ +0.0014) |
-| 8 | Late submissions vs score | Boxplot + scatter | Late submissions score 4.6pts lower |
-| 9 | Attendance & engagement over term | Multi-line | Cohort-wide dip 2026-03-02 to 03-16 |
-| 10 | Age bands vs outcomes | Grouped bar | Minimal variation across age groups |
-| 11 | Student segmentation | PCA + KMeans | 4 segments; Segment 1 (n=64) is at-risk |
-| 12 | True vs stated group sizes | Grouped bar | 86 students total discrepancy |
-| 13 | Smallest viable group | Similarity heatmap | G10 (n=1) — no same-course merge partner |
-| 14 | At-risk student ranking | Horizontal ranked bar | Top 10 dominated by G07 students |
-| 15 | Group grade trends over time | Multi-line | All groups trending flat/down; G10 worst |
+## 📊 Dashboard Coverage
 
-## Tech stack
+The dashboard answers 15 analytics questions across five major domains:
 
-- **Data processing**: Python, pandas, numpy, scipy
-- **Database**: MongoDB Atlas
-- **Clustering**: scikit-learn (KMeans, StandardScaler)
-- **Dashboard**: Streamlit + Plotly Express
+| Domain               | Questions               |
+| -------------------- | ----------------------- |
+| Attendance Analytics | Q1, Q4, Q9              |
+| Academic Performance | Q2, Q3, Q10             |
+| Engagement Analysis  | Q5, Q8                  |
+| Learning Outcomes    | Q6, Q7                  |
+| Risk & Operations    | Q11, Q12, Q13, Q14, Q15 |
 
-## Project structure
-## Project Structure
+---
+
+## 🗄️ Data Sources
+
+| Collection               | Description                             |
+| ------------------------ | --------------------------------------- |
+| `courses`                | Course catalogue and module information |
+| `students`               | Student roster and enrollment data      |
+| `groups`                 | Cohort information                      |
+| `grades`                 | Assessment results                      |
+| `attendance`             | Monthly attendance records              |
+| `concepts_performance`   | Concept mastery measurements            |
+| `engagement_events`      | Student activity logs                   |
+| `assignment_submissions` | Assignment submission records           |
+
+---
+
+## ⚠️ Data Quality Notes
+
+### Engagement Data
+
+Only `video_watch` events are available.
+
+Unavailable metrics include:
+
+* Login frequency
+* Discussion activity
+* Platform navigation behavior
+* Assignment viewing history
+
+Therefore engagement metrics rely on:
+
+* Total watch time
+* Number of watch events
+
+### Group Size Reliability
+
+The field:
+
+```text
+groups.stated_num_students
+```
+
+is self-reported and differs from actual enrollment counts.
+
+The dashboard uses:
+
+```text
+students collection
+```
+
+as the source of truth for roster calculations.
+
+### Outlier Cohort
+
+Course **C007** contains only **one enrolled student** and is treated as a non-comparable outlier in course-level analyses.
+
+---
+
+## 📈 Key Findings
+
+| Question | Main Insight                                                   |
+| -------- | -------------------------------------------------------------- |
+| Q1       | G07-C005 attendance is 15.8 percentage points below average    |
+| Q2       | Quiz scores show the highest variability                       |
+| Q3       | C001 is the strongest course, C005 the weakest                 |
+| Q4       | Attendance moderately correlates with grades (r=0.42)          |
+| Q5       | Engagement positively correlates with performance              |
+| Q6       | Recursion exhibits the highest failure rate                    |
+| Q7       | Weak concept mastery remains largely unchanged over time       |
+| Q8       | Late submissions reduce average score by 4.6 points            |
+| Q9       | Platform-wide engagement dip observed during March             |
+| Q10      | Age has minimal effect on outcomes                             |
+| Q11      | Four student segments identified via clustering                |
+| Q12      | 86-student discrepancy between reported and actual group sizes |
+| Q13      | G10 is operationally non-viable                                |
+| Q14      | Risk rankings are dominated by G07 students                    |
+| Q15      | Most groups show flat or declining grade trends                |
+
+---
+
+## 🏗️ System Architecture
+
+```text
+Excel Files
+JSON Records
+MongoDB Collections
+        │
+        ▼
+ Data Cleaning & Transformation
+        │
+        ▼
+      MongoDB Atlas
+        │
+        ▼
+     Streamlit App
+        │
+        ▼
+ Interactive Analytics Dashboard
+```
+
+---
+
+## 📂 Project Structure
 
 ```text
 kayfa_dashboard/
@@ -87,66 +168,98 @@ kayfa_dashboard/
     └── 15_Group_Trends.py
 ```
 
-### File Descriptions
+---
 
-| File               | Description                                                          |
-| ------------------ | -------------------------------------------------------------------- |
-| `app.py`           | Main Streamlit application entry point and dashboard home page.      |
-| `db.py`            | MongoDB Atlas connection and database utility functions.             |
-| `data_loader.py`   | Handles data retrieval, preprocessing, caching, and transformations. |
-| `requirements.txt` | List of Python dependencies required to run the application.         |
+## ⚙️ Installation
 
-### Dashboard Pages
+### Clone Repository
 
-| Page                             | Purpose                                                               |
-| -------------------------------- | --------------------------------------------------------------------- |
-| `1_Attendance.py`                | Analyze student attendance patterns and absenteeism rates.            |
-| `2_Scores_Distribution.py`       | Visualize score distributions and performance spread.                 |
-| `3_Course_Performance.py`        | Compare performance across courses and subjects.                      |
-| `4_Attendance_vs_Grade.py`       | Explore the relationship between attendance and academic performance. |
-| `5_Engagement_vs_Performance.py` | Measure the impact of engagement metrics on student outcomes.         |
-| `6_Concept_Failure_Rates.py`     | Identify concepts with the highest failure rates.                     |
-| `7_Concept_Trend.py`             | Track concept mastery and performance trends over time.               |
-| `8_Late_Submissions.py`          | Analyze late submission behavior and its academic impact.             |
-| `9_Term_Timeline.py`             | Visualize key academic events and metrics across the term timeline.   |
-| `10_Age_Bands.py`                | Explore performance and participation across different age groups.    |
-| `11_Segmentation.py`             | Segment students into meaningful performance and engagement clusters. |
-| `12_Group_Size_Audit.py`         | Audit group sizes and identify imbalances or anomalies.               |
-| `13_Group_Merge.py`              | Analyze and recommend potential group merging opportunities.          |
-| `14_At_Risk_Ranking.py`          | Rank students based on risk indicators to support early intervention. |
-| `15_Group_Trends.py`             | Monitor and compare trends across different student groups.           |
-
-### Dashboard Goals
-
-The dashboard is designed to answer 15 key educational analytics questions related to:
-
-* Attendance behavior
-* Student performance
-* Engagement patterns
-* Concept mastery
-* Submission habits
-* Student segmentation
-* Group optimization
-* Early identification of at-risk students
-
-The application retrieves data from MongoDB Atlas, processes it efficiently, and presents interactive visualizations through Streamlit to support data-driven educational decision-making.
-## Setup
-
-1. Install dependencies:
-pip install -r requirements.txt
-2. Add MongoDB credentials to `.streamlit/secrets.toml`:
-```toml
-   MONGO_URI = "mongodb+srv://<user>:<pass>@cluster.mongodb.net/?retryWrites=true&w=majority"
-   MONGO_DB = "kayfa"
+```bash
+git clone <repository-url>
+cd kayfa_dashboard
 ```
-3. Run:
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Configure Secrets
+
+Create:
+
+```text
+.streamlit/secrets.toml
+```
+
+```toml
+MONGO_URI = "mongodb+srv://<user>:<password>@cluster.mongodb.net/"
+MONGO_DB = "kayfa"
+```
+
+### Run Dashboard
+
+```bash
 streamlit run app.py
+```
 
-## Recommendations summary
+---
 
-- Priority intervention: Group 07 (C005) — low attendance, segment-1 at-risk
-  concentration, top of the risk ranking
-- Curriculum fix: rework Recursion teaching/assessment in C002
-- Data quality: reconcile `groups.stated_num_students` against the live
-  roster before using it for capacity planning
-- Operational: review G10's viability (1 student, no merge partner)
+## ☁️ Deployment
+
+The dashboard can be deployed on:
+
+* Streamlit Community Cloud
+* Render
+* Railway
+* Azure App Service
+* AWS EC2
+* Docker Containers
+
+MongoDB Atlas is used as the production database backend.
+
+---
+
+## 🎯 Final Recommendations
+
+### High Priority
+
+* Investigate Group 07 attendance issues
+* Provide intervention for high-risk students
+* Review Course C005 content quality
+
+### Curriculum Improvements
+
+* Redesign Recursion teaching strategy in C002
+* Reevaluate assessments with unusually high failure rates
+
+### Operational Improvements
+
+* Reconcile reported group sizes with actual rosters
+* Review viability of Group G10
+
+### Data Improvements
+
+* Capture login activity
+* Track forum participation
+* Store assignment view events
+* Expand engagement metrics beyond video consumption
+
+---
+
+## 👨‍💻 Tech Stack
+
+* Python
+* Pandas
+* NumPy
+* SciPy
+* Scikit-Learn
+* MongoDB Atlas
+* Streamlit
+* Plotly Express
+* Plotly Graph Objects
+
+---
+
+Built as part of the **Kayfa Learning Platform Analytics Project** to support data-driven educational decision making.

@@ -5,3 +5,4 @@
 /student_edu_info/
 /pages/__pycache__/
 /.streamlit/
+.env
