@@ -269,8 +269,7 @@ Built as part of the **Kayfa Learning Platform Analytics Project** to support da
 
 Watch the dashboard in action:
 
-🔗 **Demo Video:** 
-![Demo](Student Analysis demp1.mp4)
+🔗 **Demo Video:** [![Watch Demo](assets/thumb.png)](https://github.com/KyrollosGhali/Student-Analytics/blob/5e1239ec038907ef792f4f071110fbc9f45e7f84/Student%20Analysis%20demp1.mp4)
 ### Key Features Demonstrated
 
 * Interactive attendance analytics
