@@ -2,7 +2,6 @@ import streamlit as st
 from pymongo import MongoClient
 import pandas as pd
 
-@st.cache_resource
 def get_client():
     uri = st.secrets["MONGO_URI"]
 
