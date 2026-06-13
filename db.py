@@ -6,21 +6,14 @@ import pandas as pd
 def get_client():
     uri = st.secrets["MONGO_URI"]
 
-    try:
-        client = MongoClient(
-            uri,
-            serverSelectionTimeoutMS=10000
-        )
+    client = MongoClient(
+        uri,
+        tls=True,
+        tlsAllowInvalidCertificates=True,
+        serverSelectionTimeoutMS=15000
+    )
 
-        client.admin.command("ping")
-        st.success("MongoDB Connected")
-
-        return client
-
-    except Exception as e:
-        st.error(f"MongoDB Error: {e}")
-        raise
-
+    return client
 def get_db():
     return get_client()[st.secrets.get("MONGO_DB", "student_analytics")]
 
