@@ -263,3 +263,21 @@ MongoDB Atlas is used as the production database backend.
 ---
 
 Built as part of the **Kayfa Learning Platform Analytics Project** to support data-driven educational decision making.
+## 🎥 Live Demo
+
+### Dashboard Walkthrough
+
+Watch the dashboard in action:
+
+🔗 **Demo Video:** `Student Analysis demp.mp4`
+
+### Key Features Demonstrated
+
+* Interactive attendance analytics
+* Student performance exploration
+* Engagement vs performance analysis
+* Concept mastery tracking
+* Student segmentation using K-Means clustering
+* At-risk student identification
+* Group size auditing and optimization insights
+
