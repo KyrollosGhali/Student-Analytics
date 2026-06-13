@@ -1,7 +1,7 @@
 streamlit
 python-dotenv
 pymongo
-"pymongo[srv]"
+pymongo[srv]
 numpy
 pandas
 plotly
