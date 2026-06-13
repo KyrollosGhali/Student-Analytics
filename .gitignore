@@ -1,0 +1,7 @@
+/.venv/
+.env
+/__pycache__/
+/cleaned_data/
+/student_edu_info/
+/pages/__pycache__/
+/.streamlit/

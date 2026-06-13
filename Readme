@@ -1,0 +1,21 @@
+kayfa_dashboard/
+├── app.py
+├── db.py
+├── data_loader.py
+├── requirements.txt
+└── pages/
+    ├── 1_Attendance.py
+    ├── 2_Scores_Distribution.py
+    ├── 3_Course_Performance.py
+    ├── 4_Attendance_vs_Grade.py
+    ├── 5_Engagement_vs_Performance.py
+    ├── 6_Concept_Failure_Rates.py
+    ├── 7_Concept_Trend.py
+    ├── 8_Late_Submissions.py
+    ├── 9_Term_Timeline.py
+    ├── 10_Age_Bands.py
+    ├── 11_Segmentation.py
+    ├── 12_Group_Size_Audit.py
+    ├── 13_Group_Merge.py
+    ├── 14_At_Risk_Ranking.py
+    └── 15_Group_Trends.py
