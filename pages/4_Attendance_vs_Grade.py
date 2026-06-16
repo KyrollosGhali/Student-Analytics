@@ -48,7 +48,11 @@ if logo_path.exists():
     )
 
 master = get_master().copy()
-clean = master[(master["attendance_rate"] > 0) & (master["avg_grade"] > 0)].copy()
+clean = master[
+    (master["attendance_rate"] > 0)
+    & (master["avg_grade"] > 0)
+    & (master["avg_grade"] <= 100)
+].copy()
 
 if len(clean) < 2:
     st.info("Not enough data to calculate a reliable correlation.")
@@ -75,4 +79,4 @@ st.write(
     "Students with stronger attendance tend to score better, although attendance alone does not explain all grade variation."
 )
 
-st.caption("Method: Pearson correlation between student attendance rate and average grade, with a regression trend line.")
+st.caption("Method: Pearson correlation between student attendance rate and average grade, with a regression trend line. Records with avg_grade > 100 (data entry outliers) were excluded.")
