@@ -47,7 +47,7 @@ from data_loader import get_master, load_courses, load_groups, load_students, lo
 
 st.set_page_config(page_title="Kayfa Platform Analytics", layout="wide", page_icon="📊")
 
-st.title("Kayfa Platform — Student Analytics Dashboard")
+st.title("Kayfa Platform — Student Analytics Dashboard - Task Week2")
 
 st.markdown(
     """
