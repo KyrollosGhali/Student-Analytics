@@ -198,11 +198,45 @@ st.subheader("Insight")
 for label in labels:
     st.write(label)
 st.subheader("Recommendation")
-st.write(
-    "Segment 1 (64 students) is the clear at-risk group: low attendance, low grades, low engagement, "
-    "and an average of 12 failed concepts. These students need immediate and structured intervention — "
-    "personal outreach from instructors, mandatory catch-up sessions, and a simplified study plan. "
-    "Segment 2 (125 students) needs academic support despite moderate attendance — tutoring or concept "
-    "revision sessions would help. Segments 0 and 3 are performing well and require only light-touch "
-    "monitoring. Use this segmentation monthly as an early-warning dashboard, not a one-time snapshot."
-)
+st.write("""
+**Segment 0 — Passive / Average learners:**
+This group performs at a moderate level across all dimensions without any standout signal.
+Recommendation: Introduce optional enrichment activities and interactive content to boost
+engagement before this group drifts toward underperformance. Monitor monthly to catch
+any decline early.
+
+**Segment 1 — High achievers:**
+The strongest segment across attendance, engagement, grades, and fewest failed concepts.
+Recommendation: Maintain momentum by offering advanced or challenge content to keep
+this group stimulated. Consider leveraging these students as peer mentors for at-risk
+segments — structured peer learning benefits both sides.
+
+**Segment 2 — At-risk / Disengaged:**
+The weakest segment on every measured dimension — low attendance, low engagement,
+low grades, and high failed concept count.
+Recommendation: Immediate and personal intervention is required. Assign each student
+in this segment a direct check-in with their instructor this week. Provide a simplified
+study plan, targeted revision sessions on their failed concepts, and deadline reminders.
+This is the highest priority group before end-of-term assessments.
+
+**Segment 3 — Moderate / Stable:**
+Reasonable attendance and grades but engagement is not particularly high.
+Recommendation: Light academic support and periodic monitoring to prevent regression
+into Segment 2. Encouraging consistent video engagement may be enough to move
+this group into Segment 1 territory over time.
+
+**Segment 4 — Engaged but underperforming:**
+High engagement and video watch time but grades do not reflect the effort invested.
+Recommendation: The issue here is likely study quality rather than study quantity.
+Schedule individual sessions to review study strategies and identify which specific
+concepts are blocking performance. Redirecting their existing effort toward weaker
+concepts should translate into grade improvement relatively quickly.
+
+**Segment 5 — Absent and struggling:**
+Very low attendance combined with a high number of failed concepts — the clearest
+dropout risk signal in the dataset.
+Recommendation: Urgent outreach is needed to understand the root cause of absence —
+personal circumstances, scheduling conflicts, or loss of motivation each require a
+different response. Do not wait for exam results to act; by that point intervention
+is too late for most students in this segment.
+""")
