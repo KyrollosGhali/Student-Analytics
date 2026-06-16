@@ -82,4 +82,10 @@ st.write(
     "The populated age bands behave similarly, so age is not a primary driver of outcomes on this platform."
 )
 
-st.caption("Method: bucket ages into fixed bands and compare mean grade, attendance, and video-watch time.")
+st.subheader("Recommendation")
+st.write(
+    "Age shows minimal influence on grades, attendance, or engagement across the populated bands (18-32). "
+    "This means age-based segmentation is not a useful basis for targeted interventions on this platform. "
+    "Redirect focus toward behavioral signals — attendance rate, video engagement, and concept mastery — "
+    "which are stronger and more actionable predictors of student outcomes than demographic attributes."
+)

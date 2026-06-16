@@ -95,4 +95,11 @@ st.write(
     "so the curriculum fix is helping only gradually."
 )
 
-st.caption("Method: average mastery score by timestamp, with a simple linear trend estimate.")
+st.subheader("Recommendation")
+st.write(
+    "Recursion mastery has moved from 48% to 65% over the term, but the trend is effectively flat — "
+    "the improvement is inconsistent and has not produced a clear recovery curve. The current teaching "
+    "approach has reached its ceiling for this concept. Introduce targeted interventions: spaced repetition "
+    "exercises, peer teaching sessions, and additional worked examples between assessments. "
+    "Re-evaluate after two assessment cycles to confirm whether mastery is genuinely improving."
+)

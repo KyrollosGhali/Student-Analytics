@@ -82,4 +82,11 @@ st.session_state["weakest_concept_id"] = weakest["concept_id"]
 st.session_state["weakest_concept_name"] = weakest["concept_name"]
 st.session_state["weakest_concept_course"] = weakest["course_id"]
 
-st.caption("Method: failure rate = failed outcomes divided by all graded attempts for each concept.")
+st.subheader("Recommendation")
+st.write(
+    "Recursion in C002 has an 83.4% failure rate — the single biggest curriculum weak spot on the platform. "
+    "This requires immediate action: redesign the teaching sequence using a scaffolded approach (simple → complex), "
+    "add dedicated practice sessions before any Recursion assessment, and revise assessment questions to ensure "
+    "they test understanding rather than memorization. Joins & Merges in C001 (47.4%) and Funnel Analytics "
+    "in C005 (46.8%) are secondary priorities for curriculum review."
+)

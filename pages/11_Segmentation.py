@@ -197,3 +197,12 @@ for seg, row in profile.iterrows():
 st.subheader("Insight")
 for label in labels:
     st.write(label)
+st.subheader("Recommendation")
+st.write(
+    "Segment 1 (64 students) is the clear at-risk group: low attendance, low grades, low engagement, "
+    "and an average of 12 failed concepts. These students need immediate and structured intervention — "
+    "personal outreach from instructors, mandatory catch-up sessions, and a simplified study plan. "
+    "Segment 2 (125 students) needs academic support despite moderate attendance — tutoring or concept "
+    "revision sessions would help. Segments 0 and 3 are performing well and require only light-touch "
+    "monitoring. Use this segmentation monthly as an early-warning dashboard, not a one-time snapshot."
+)

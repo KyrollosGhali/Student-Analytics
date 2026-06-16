@@ -259,25 +259,10 @@ else:
         population.
         """
     )
-
-# --------------------------------------------------
-# Detailed Table
-# --------------------------------------------------
-st.subheader("Attendance Summary")
-
-st.dataframe(
-    group_att.rename(
-        columns={
-            "group_name": "Group",
-            "attendance_rate": "Attendance Rate (%)"
-        }
-    ),
-    use_container_width=True
-)
-
-# --------------------------------------------------
-# Footer
-# --------------------------------------------------
-st.caption(
-    "Method: Mean student attendance rate aggregated by group and compared against the filtered population average."
+st.subheader("Recommendation")
+st.write(
+    "Group G07 (C005) sits 15.8 points below the platform average and should be the immediate priority. "
+    "Schedule a direct check-in with the assigned instructor to investigate root causes — scheduling conflicts, "
+    "session timing, or content difficulty. Consider switching the session day or time if attendance remains "
+    "low after outreach. G10 (C007) should be monitored closely as a secondary concern."
 )

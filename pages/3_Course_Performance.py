@@ -1,7 +1,7 @@
 import plotly.express as px
 import streamlit as st
 
-from data_loader import get_master
+from data_loader import get_master , load_courses , load_groups
 
 st.title("3. Course Performance Comparison")
 st.markdown("**Business Question:** Which course has the highest and lowest average grade, and how does grade spread differ between them?")
@@ -47,13 +47,32 @@ if logo_path.exists():
     )
 
 master = get_master().copy()
+# filter out courses with fewer than 2 students to avoid misleading stats
+courses = load_courses().copy()
+course_counts = master["course_id"].value_counts()
+valid_courses = course_counts[course_counts >= 2].index.tolist()
+master = master[master["course_id"].isin(valid_courses)]
+column1 , column2 , column3 = st.columns([1, 1, 2])
+with column1:
+    st.metric("Total Courses", master["course_id"].nunique())
+    courses_options = sorted(master["course_id"].unique())
+    selected_course = st.multiselect("Filter by Course", options=courses_options)
+    master = master[master["course_id"].isin(selected_course)] if selected_course else master
+with column2:
+    st.metric("Total Students", master["student_id"].nunique())
+    groups = load_groups().copy()
+    group_options = sorted(groups["group_id"].unique())
+    selected_group = st.multiselect("Filter by Group", options=group_options)
+    if "All groups" not in selected_group:
+        master = master[master["group_id"].isin(selected_group)]
 course_stats = (
     master.groupby("course_id")["avg_grade"]
     .agg(mean="mean", std="std", count="count")
     .reset_index()
     .sort_values("mean", ascending=False)
 )
-
+filter_courses = course_stats["course_id"].tolist()
+course_stats["course_id"] = course_stats["course_id"].astype(str)
 fig1 = px.bar(
     course_stats,
     x="course_id",
@@ -86,4 +105,10 @@ st.write(
     f"The gap suggests that course-level difficulty and consistency differ materially across the platform."
 )
 
-# st.dataframe(course_stats.rename(columns={"course_id": "Course", "mean": "Average Grade", "std": "Std Dev", "count": "Student Count"}))
+st.subheader("Recommendation")
+st.write(
+    "C005 is the weakest course by average grade (59.7%) with a meaningful cohort size (n=46), making it "
+    "the top priority for curriculum review. Audit the course content, assessment difficulty, and instructor "
+    "delivery. C001 is the benchmark to learn from — study what makes it the strongest performer and apply "
+    "those patterns to C005. Treat C007 as a non-comparable outlier (1 student only) until more students enroll."
+)

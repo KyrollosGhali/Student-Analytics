@@ -10,6 +10,13 @@ from db import load_collection
 def _empty_df(columns):
     return pd.DataFrame(columns=columns)
 
+def remove_outliers(group):
+    q1 = group["pct"].quantile(0.25)
+    q3 = group["pct"].quantile(0.75)
+    iqr = q3 - q1
+    lower_bound = q1 - 1.5 * iqr
+    upper_bound = q3 + 1.5 * iqr
+    return group[(group["pct"] >= lower_bound) & (group["pct"] <= upper_bound)]
 
 @st.cache_data(ttl=600)
 def load_courses():
@@ -211,7 +218,7 @@ def get_master():
     attendance = load_attendance()
     engagement = load_engagement()
     concepts = load_concepts()
-
+    grades = remove_outliers(grades) if not grades.empty else grades
     if not students.empty and not groups.empty:
         students = students.merge(groups[["group_id", "course_id", "group_name"]], on="group_id", how="left")
     elif "group_name" not in students.columns:
@@ -263,4 +270,16 @@ def get_master():
         master[c] = master[c].fillna(0)
 
     master["video_hours"] = master["total_video_seconds"] / 3600
+    # print master columns and dtypes
+    # print(master.dtypes)
+    # add assignment type to master if available
+    if not grades.empty and "type" in grades.columns:
+        type_summary = (
+            grades.groupby(["student_id", "type"])["pct"]
+            .mean().reset_index(name="avg_grade")
+            .pivot(index="student_id", columns="type", values="avg_grade")
+            .reset_index()
+        )
+        master = master.merge(type_summary, on="student_id", how="left")
+        
     return master

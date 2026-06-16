@@ -93,28 +93,12 @@ st.write(
     "The list is concentrated in a small number of groups, which suggests a cohort-level issue rather than isolated underperformance."
 )
 
-# st.dataframe(
-#     top10[[
-#         "student_id",
-#         "full_name",
-#         "group_id",
-#         "attendance_rate",
-#         "avg_grade",
-#         "engagement_trend",
-#         "failed_concepts_count",
-#         "risk_score",
-#     ]].rename(
-#         columns={
-#             "student_id": "Student ID",
-#             "full_name": "Student",
-#             "group_id": "Group ID",
-#             "attendance_rate": "Attendance Rate",
-#             "avg_grade": "Average Grade",
-#             "engagement_trend": "Engagement Trend",
-#             "failed_concepts_count": "Failed Concepts",
-#             "risk_score": "Risk Score",
-#         }
-#     )
-# )
-
-st.caption("Method: combine low attendance, declining engagement, low grade, and failed concepts into a weighted risk score.")
+st.subheader("Recommendation")
+st.write(
+    "The top 10 at-risk students are dominated by G07, confirming that this is a group-level problem "
+    "requiring a structural response, not just individual outreach. Contact the top 10 students this week "
+    "with a personal message from their instructor — not an automated email. For G07 as a whole, "
+    "review the instructor assignment, session format, and content pacing. Students combining low "
+    "attendance with declining engagement and multiple failed concepts are at the highest dropout risk "
+    "and should be prioritized above students who are low on only one dimension."
+)

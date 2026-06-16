@@ -101,4 +101,10 @@ st.write(
     "The dataset does not contain true login events, so video activity is the most reliable engagement proxy available."
 )
 
-st.caption("Method: Pearson correlations between performance and engagement proxies, plus a correlation heatmap.")
+st.subheader("Recommendation")
+st.write(
+    "Video watch time shows a moderate positive link with grades (r = 0.38), making it a useful early-warning "
+    "signal. Students with very low video engagement relative to their peers should be flagged for outreach "
+    "before assessment results arrive. Note that the current dataset only contains video-watch events — "
+    "tracking login frequency and forum participation in future would strengthen this signal considerably."
+)

@@ -83,4 +83,11 @@ st.write(
     "That pattern points to a cohort-wide disruption rather than a single-group problem."
 )
 
-st.caption("Method: weekly attendance rate from session records and weekly engagement event counts from platform events.")
+st.subheader("Recommendation")
+st.write(
+    "Attendance and engagement dip together in early to mid March (week of 2026-03-02), pointing to a "
+    "cohort-wide disruption rather than individual disengagement. Cross-reference this window with the "
+    "academic calendar — mid-term exams, public holidays, or Ramadan timing are the most likely causes "
+    "in an Egyptian cohort context. For future terms, build in lighter content weeks or optional catch-up "
+    "sessions around known high-pressure windows to prevent the dip from compounding into permanent disengagement."
+)

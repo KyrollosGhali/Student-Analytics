@@ -92,4 +92,12 @@ st.write(
     "More buffer before the deadline is associated with higher scores, so procrastination is clearly costing marks."
 )
 
-st.caption("Method: compare assignment scores by late/on-time status and relate score to buffer hours before deadline.")
+st.subheader("Recommendation")
+st.write(
+    "Late submitters score 4.6 points lower on average, and students who submit with very little buffer "
+    "time before the deadline also underperform. Introduce automated deadline reminders at 72 hours and "
+    "24 hours before each assignment closes. Flag students who have submitted late more than twice for "
+    "a proactive check-in. Consider whether deadlines are realistically spaced given course load — "
+    "a 35.8% late submission rate across the platform suggests a systemic issue, not just individual "
+    "procrastination."
+)

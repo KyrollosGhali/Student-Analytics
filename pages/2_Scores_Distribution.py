@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-from data_loader import load_grades
+from data_loader import load_grades , load_groups
 
 st.title("2. Score Distribution by Assessment Type")
 st.markdown("**Business Question:** How are scores distributed by assessment type across the platform, and where is performance most volatile?")
@@ -55,6 +55,22 @@ if grades.empty:
 if "pct" not in grades.columns:
     grades["pct"] = grades["score"] / grades["max_score"] * 100
 
+# ---------- Group filter ----------
+groups = load_groups()
+column1, column2 = st.columns([1, 3])
+with column1:
+    st.subheader("Group Filter")
+    group_options = ["All Groups"] + sorted(groups["group_id"].unique().tolist())
+    selected_group = st.selectbox("Filter by Group", options=group_options)
+
+    if selected_group != "All Groups":
+        grades = grades[grades["group_id"] == selected_group]
+
+    if grades.empty:
+        st.info("No grade data available for the selected group.")
+        st.stop()
+
+# ---------- Outlier removal ----------
 def remove_outliers(group):
     q1 = group["pct"].quantile(0.25)
     q3 = group["pct"].quantile(0.75)
@@ -62,26 +78,41 @@ def remove_outliers(group):
     lower_bound = q1 - 1.5 * iqr
     upper_bound = q3 + 1.5 * iqr
     return group[(group["pct"] >= lower_bound) & (group["pct"] <= upper_bound)]
-grades = grades.groupby("type").apply(remove_outliers).reset_index(drop=True)
+
+grades = grades.groupby("type", group_keys=False).apply(remove_outliers).reset_index(drop=True)
+
+if grades.empty:
+    st.info("No data remains after outlier removal.")
+    st.stop()
+
+# ---------- Summary stats ----------
 summary = (
     grades.groupby("type")["pct"]
-    .agg(mean="mean", median="median", std="std", q1=lambda s: s.quantile(0.25), q3=lambda s: s.quantile(0.75))
+    .agg(
+        mean="mean",
+        median="median",
+        std="std",
+        q1=lambda s: s.quantile(0.25),
+        q3=lambda s: s.quantile(0.75),
+    )
     .reset_index()
 )
 summary["iqr"] = summary["q3"] - summary["q1"]
 volatile_type = summary.sort_values("std", ascending=False).iloc[0]
 
+# ---------- Chart ----------
 fig = px.box(
     grades,
     x="type",
     y="pct",
     color="type",
     points="outliers",
-    title="Score Distribution by Assessment Type",
+    title=f"Score Distribution by Assessment Type — {selected_group}",
     labels={"type": "Assessment Type", "pct": "Score (%)"},
 )
 st.plotly_chart(fig, use_container_width=True)
 
+# ---------- Insight ----------
 st.subheader("Insight")
 st.write(
     f"**{volatile_type['type'].title()}** is the most volatile assessment type "
@@ -90,8 +121,10 @@ st.write(
     f"while quizzes show the widest spread in student outcomes."
 )
 
-# st.dataframe(
-#     summary[["type", "mean", "median", "std", "iqr"]].rename(
-#         columns={"type": "Assessment Type", "mean": "Mean", "median": "Median", "std": "Std Dev", "iqr": "IQR"}
-#     )
-# )
+st.subheader("Recommendation")
+st.write(
+    "Quizzes are the most volatile assessment type, suggesting inconsistent alignment between what is taught "
+    "and what is tested. Review quiz question design and pacing across courses — particularly whether quizzes "
+    "are administered too soon after new material is introduced. Assignments consistently score the lowest on "
+    "average, which may indicate unclear briefs or insufficient support before deadlines."
+)

@@ -101,6 +101,12 @@ st.write(
     f"**{slope_df.iloc[-1]['group_id']}** at {slope_df.iloc[-1]['slope']:.3f} points per assessment."
 )
 
-# st.dataframe(slope_df.rename(columns={"group_id": "Group ID", "group_name": "Group", "slope": "Trend Slope"}))
-
-st.caption("Method: average grades by group and assessment order, then estimate a linear slope per group.")
+st.subheader("Recommendation")
+st.write(
+    "All groups are on a slight downward trend across successive assessments — no group is clearly "
+    "improving. G10 has the steepest decline and G05 and G08 are the closest to stable, making them "
+    "the benchmark cohorts worth studying. Investigate what G05 and G08 are doing differently "
+    "(instructor approach, session structure, assessment spacing) and share those practices "
+    "platform-wide. For groups with steeper declines, consider restructuring the second half of "
+    "the term with more revision sessions and lighter new-content load to arrest the slide."
+)

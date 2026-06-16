@@ -63,6 +63,10 @@ plot_df = audit.melt(
     var_name="metric",
     value_name="count",
 )
+plot_df["metric"] = plot_df["metric"].map({
+    "stated_num_students": "Stated Size",
+    "true_count": "True Size",
+})
 
 fig = px.bar(
     plot_df,
@@ -88,16 +92,11 @@ else:
         "These inconsistencies are large enough to affect staffing and capacity decisions."
     )
 
-# st.dataframe(
-#     audit[["group_id", "group_name", "stated_num_students", "true_count", "discrepancy"]].rename(
-#         columns={
-#             "group_id": "Group ID",
-#             "group_name": "Group",
-#             "stated_num_students": "Stated Count",
-#             "true_count": "True Count",
-#             "discrepancy": "Difference",
-#         }
-#     )
-# )
-
-st.caption("Method: count students per group from the roster and compare that count with the stated group size.")
+st.subheader("Recommendation")
+st.write(
+    "A total discrepancy of 86 students between stated and true group sizes makes the groups table "
+    "unreliable for any planning or resourcing decision. G05 and G10 have the largest gaps (30 students each). "
+    "Immediately replace stated_num_students with a live count derived from the student roster as the "
+    "single source of truth. Automate this reconciliation on a weekly basis going forward and remove "
+    "the self-reported field from any operational dashboard or staffing model."
+)

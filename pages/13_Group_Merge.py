@@ -96,4 +96,12 @@ st.write(
     "If scheduling and course alignment allow, that is the best merge candidate."
 )
 
-st.caption("Method: compare group-level concept mastery profiles with cosine similarity and identify the smallest cohort.")
+st.subheader("Recommendation")
+st.write(
+    "G10 with one enrolled student is not a viable standalone teaching group and should not continue "
+    "as an independent cohort. Since no other group currently studies C007, the most practical options are: "
+    "(1) reassign the student to the closest concept-profile match in another group after confirming "
+    "course equivalence, or (2) hold C007 as a pilot cohort intentionally and document it as such "
+    "so it is excluded from group-level performance comparisons. Either way, a decision should be made "
+    "immediately to avoid wasting instructor time and platform resources on a single-student cohort."
+)
